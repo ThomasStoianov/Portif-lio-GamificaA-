@@ -1,6 +1,7 @@
 import { Actor, CollisionType, Color, Engine, FadeInOut, Scene, Transition, vec } from "excalibur";
 import { Resources } from "../resources";
 import { Player } from "../actors/player";
+import { npc } from "../actors/npc";
 
 export class expoScene extends Scene {
     onTransition(direction: "in" | "out"): Transition | undefined {
@@ -12,6 +13,9 @@ export class expoScene extends Scene {
     }
 
     onInitialize(engine: Engine<any>): void {
+        // Ativar o modo de Debug
+        engine.toggleDebug()
+        
         // Carregar o mapa
         let tiledMap = Resources.Mapa
 
@@ -27,14 +31,48 @@ export class expoScene extends Scene {
         // Definir zoom da camera para aumentar um pouco a visualização
         this.camera.zoom = 1.4
 
+        // Carregar spawn point do player (ponto de surgimento do player)
+        let spawnPoint = tiledMap.getObjectsByName("player_spawn") [0]
+        
         // Criação e configuração do jogador
-        let jogador = new Player()
+        let jogador = new Player(vec(spawnPoint.x + offsetX, spawnPoint.y + offsetY))
 
         // Define z-index do player, útil se algum outro elemento ficar "por cima" do jogo
         jogador.z = 1
 
         // Adicionar o player na cena
         this.add(jogador)
+
+        let npcSpawnPointA = tiledMap.getObjectsByName("npc_a") [0]
+        let npcSpawnPointB= tiledMap.getObjectsByName("npc_b") [0]
+        let npcSpawnPointC = tiledMap.getObjectsByName("npc_c") [0]
+
+        // Configurar NPCs
+        let npcA = new npc(
+            vec(npcSpawnPointA.x + offsetX, npcSpawnPointA.y + offsetY),
+            Color.Blue,
+            "npcA"
+        )
+
+        let npcB = new npc(
+            vec(npcSpawnPointB.x + offsetX, npcSpawnPointB.y + offsetY),
+            Color.Chartreuse,
+            "npc_b"
+        )
+
+        let npcC = new npc(
+            vec(npcSpawnPointC.x + offsetX, npcSpawnPointC.y + offsetY),
+            Color.Blue,
+            "npc_c"
+        )
+
+        this.add(npcA)
+        this.add(npcB)
+        this.add(npcC)
+
+        // Focar camera no player
+        this.camera.strategy.lockToActor(jogador)
+
 
         // Adicionar colisão com cada objeto
         // Pegar a camada de objetos colisores
@@ -52,7 +90,6 @@ export class expoScene extends Scene {
                 width: objeto.tiledObject.width,
                 height: objeto.tiledObject.height,
                 collisionType: CollisionType.Fixed,
-                color: Color.Red,
             })
 
             // Adicionar o colisor do objeto na cena
