@@ -8,8 +8,7 @@ export class Player extends Actor {
 
     private temObjetoProximo: Boolean = false
     private ultimoColisor?: Collider
-
-
+   
     // Configuração do Player
     constructor(posicao: Vector) {
         super({
@@ -231,9 +230,11 @@ export class Player extends Actor {
             }
         })
 
-        // Configurar o player para monitorar o evento "Realese" -> soltar a tela
+
+        // Configura o player para monitorar evento "release" -> soltar
         engine.input.keyboard.on("release", (event) => {
-            // Fazer o player parar ao soltar as teclas de movimentação lateral
+            // Fazer o player parar ao soltar as teclas de movimentação
+            // Parar movimentação lateral ao soltar as teclas de movimentação lateral
             if (
                 event.key == Keys.A ||
                 event.key == Keys.Left ||
@@ -244,6 +245,7 @@ export class Player extends Actor {
                 this.vel.x = 0
             }
 
+            // Parar movimentação vertical ao soltar as teclas de movimentação vertical
             if (
                 event.key == Keys.W ||
                 event.key == Keys.Up ||
@@ -256,15 +258,66 @@ export class Player extends Actor {
 
             // Ao parar o player, definir animação idle da ultima direção
             if (this.vel.x == 0 && this.vel.y == 0) {
-                // ultimadirecao - left,right,up,down
-                // Colar a ultimadirecao + - idle -> ex. left-idle,right-idle,up-idle,down-idle
+                // ultimaDirecao - left, right, up, down
+                // Colar a ultimaDirecao + -idle -> ex. left-idle, right-idle, up-idle 
                 this.graphics.use(this.ultimadirecao + "-idle")
+               
+            }
+
+        })
+
+
+        // Configura o player para monitorar evento "press" -> pressionar
+        engine.input.keyboard.on("press", (event) => {
+            // Se a tecla pressionada for a "F" e tiver objeto proximo
+            if (event.key == Keys.F && this.temObjetoProximo) {
+
+                // Identificar o alvo da interação
+                if (this.ultimoColisor?.owner.name == "mesa_stand_a") {
+                    console.log("Essa é a mesa A");
+
+                    // Vai para a cena passando qual o objeto da interação
+                    engine.goToScene("case", {
+                        sceneActivationData: {
+                            // Passa o nome do Actor que interagiu com o player
+                            nomeDoActor: this.ultimoColisor?.owner.name
+                        }
+                    })
+                    
+                }
+                
+                // Identificar o alvo da interação
+                if (this.ultimoColisor?.owner.name == "mesa_stand_b") 
+                    console.log("Essa é a mesa B");
+
+                       // Vai para a cena passando qual o objeto da interação
+                       engine.goToScene("case", {
+                        sceneActivationData: {
+                            // Passa o nome do Actor que interagiu com o player
+                            nomeDoActor: this.ultimoColisor?.owner.name
+                        }
+                    })
+
+                     
+                // Identificar o alvo da interação
+                if (this.ultimoColisor?.owner.name == "mesa_stand_c") 
+                console.log("Essa é a mesa C");
+
+                   // Vai para a cena passando qual o objeto da interação
+                   engine.goToScene("case", {
+                    sceneActivationData: {
+                        // Passa o nome do Actor que interagiu com o player
+                        nomeDoActor: this.ultimoColisor?.owner.name
+                    }
+                })
+
+
             }
         })
     }
 
     onPreCollisionResolve(self: Collider, other: Collider, side: Side, contact: CollisionContact): void {
-        console.log(other.owner.name);
+
 
         // Indicar que tem um objeto próximo
         this.temObjetoProximo = true
@@ -278,7 +331,6 @@ export class Player extends Actor {
         if (this.ultimoColisor && this.pos.distance(this.ultimoColisor.worldPos) > 40)
             //  Marcar que o objeto não está próximo
             this.temObjetoProximo = false
-        console.log("esta longe");
 
     }
 
