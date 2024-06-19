@@ -97,7 +97,9 @@ export class historyScene extends Scene {
     onDeactivate(context: SceneActivationContext<undefined>): void {
         // Remover elemento texto da tela
         this.elementoTexto?.remove()
+        this.clear()
         
     }
+
 }
 

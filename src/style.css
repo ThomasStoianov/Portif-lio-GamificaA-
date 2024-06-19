@@ -1,83 +1,145 @@
 @import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
 
 body {
-    background-color: black;
-  }
+  background-color: black;
+}
 
-  .container-game {
-    height: 800px;
-    width: 1200px;
+.container-game {
+  height: 800px;
+  width: 1200px;
 
-    margin: 20px auto;
+  margin: 20px auto;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    position: relative;
-  }
+  position: relative;
+}
 
-  .sobre-gamifica{
-    width: 500px;
-    height: 600px;
+.sobre-gamifica {
+  width: 500px;
+  height: 600px;
 
-    padding: 40px;
+  padding: 40px;
 
-    background-color: white;
+  background-color: white;
 
-    border: solid 15px #cf5830;
-    border-radius: 30px;
+  border: solid 15px #cf5830;
+  border-radius: 30px;
 
-    color: black;
-    font-family: "Anta";
+  color: black;
+  font-family: "Anta";
 
-    position: absolute;
-    top: 10%;
-    left: 5%;
-  }
+  position: absolute;
+  top: 10%;
+  left: 5%;
+}
 
-  .sobre-gamifica h2 {
-    margin-bottom: 40px;
+.sobre-gamifica h2 {
+  margin-bottom: 40px;
 
-    font-size: 30px;
-    text-align: center;
-  }
+  font-size: 30px;
+  text-align: center;
+}
 
-  .sobre-gamifica p {
-    font-size: 16px;
-    text-align: justify;
+.sobre-gamifica p {
+  font-size: 16px;
+  text-align: justify;
 
-    line-height: 2;
-  }
+  line-height: 2;
+}
 
-  .gamificacao {
-    width: 500px;
-    height: 400px;
+.gamificacao {
+  width: 500px;
+  height: 400px;
 
-    padding: 40px;
+  padding: 40px;
 
-    background-color: white;
+  background-color: white;
 
-    border: solid 15px #cf5830;
-    border-radius: 30px;
+  border: solid 15px #cf5830;
+  border-radius: 30px;
 
-    color: black;
-    font-family: "Anta";
+  color: black;
+  font-family: "Anta";
 
-    position: absolute;
-    left: 40%;
-  }
+  position: absolute;
+  left: 40%;
+}
 
-  .gamificacao h2 {
-    margin-bottom: 40px;
+.gamificacao h2 {
+  margin-bottom: 40px;
 
-    font-size: 30px;
-    text-align: center;
-  }
+  font-size: 30px;
+  text-align: center;
+}
 
-  .gamificacao p {
-    font-size: 16px;
-    text-align: justify;
+.gamificacao p {
+  font-size: 16px;
+  text-align: justify;
 
-    line-height: 2;
-  }
+  line-height: 2;
+}
+
+.texto-case h2 {
+  margin-bottom: 40px;
+
+  font-size: 30px;
+  text-align: center;
+}
+
+.texto-case {
+  width: 500px;
+  height: 400px;
+
+  padding: 40px;
+
+  background-color: white;
+
+  border: solid 15px #cf5830;
+  border-radius: 30px;
+
+  color: black;
+  font-family: "Anta";
+
+  position: absolute;
+  left: 40%;
+}
+
+.cases {
+  left: 5%;
+}
+
+.cases {
+  width: 400px;
+  height: 600px;
+
+  padding: 40px;
+
+  background-color: #fff;
+
+  border: solid 15px #cf5830;
+  border-radius: 30px;
+
+  color: black;
+  font-family: "Anta";
+
+  position: absolute;
+  top: 10%;
+}
+
+.cases h2 {
+  margin-bottom: 40px;
+
+  font-size: 30px;
+
+  text-align: center;
+}
+
+.cases p {
+  font-size: 16px;
+  text-align: justify;
+
+  line-height: 1.9;
+}

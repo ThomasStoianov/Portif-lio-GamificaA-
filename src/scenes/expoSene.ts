@@ -8,7 +8,7 @@ export class expoScene extends Scene {
         return new FadeInOut({
             direction: direction,
             color: Color.Black,
-            duration: 1000
+            duration: 500
         })
     }
 
@@ -21,7 +21,8 @@ export class expoScene extends Scene {
 
         // Configurar a música e executar
         musicaFundo.loop = true
-        musicaFundo.play(0.5)
+        musicaFundo.play()
+        musicaFundo.volume = 0.3
 
         
         // Carregar o mapa

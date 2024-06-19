@@ -33,7 +33,7 @@ export class Player extends Actor {
             },
             spacing: {
                 originOffset: {
-                    y: 4
+                    y: 0
                 }
             }
         })
