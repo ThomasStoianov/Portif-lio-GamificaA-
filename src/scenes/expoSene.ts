@@ -59,20 +59,17 @@ export class expoScene extends Scene {
         // Configurar NPCs
         let npcA = new npc(
             vec(npcSpawnPointA.x + offsetX, npcSpawnPointA.y + offsetY),
-            Color.Blue,
-            "npcA"
+           npcSpawnPointA.tiledObject.name!
         )
 
         let npcB = new npc(
             vec(npcSpawnPointB.x + offsetX, npcSpawnPointB.y + offsetY),
-            Color.Chartreuse,
-            "npc_b"
+           npcSpawnPointB.tiledObject.name!
         )
 
         let npcC = new npc(
             vec(npcSpawnPointC.x + offsetX, npcSpawnPointC.y + offsetY),
-            Color.Blue,
-            "npc_c"
+           npcSpawnPointC.tiledObject.name!
         )
 
         this.add(npcA)

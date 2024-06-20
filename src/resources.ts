@@ -15,6 +15,10 @@ import tsxBibliotecaPath from "./Maps/tileset_biblioteca.tsx?url"
 import tmxMapaPath from "./Maps/showroom_map.tmx?url"
 
 import PlayerSpritePath from "./sprites/player.png"
+import npcASpriteSheet from "./sprites/Npc2.png"
+import npcBSpriteSheet from "./sprites/Npc3.png"
+import npcSpriteSheet from "./sprites/Npc2.png"
+
 
 import Escola from "./images/escola.jpg"
 import Escritorio from "./images/escritorio.jpg"
@@ -43,7 +47,11 @@ export const Resources = {
   } ),
 
   Escola: new ImageSource(Escola),
-  Escritorio: new ImageSource(Escritorio)
+  Escritorio: new ImageSource(Escritorio),
+
+  npcASpriteSheet: new ImageSource(npcASpriteSheet),
+  npcBSpriteSheet: new ImageSource(npcBSpriteSheet),
+  npcCSpriteSheet: new ImageSource(npcSpriteSheet)
  
 } as const;
 

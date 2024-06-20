@@ -4,7 +4,7 @@ import { loader } from "./resources";
 import { historyScene } from "./scenes/historyScene";
 import { gamificationScene } from "./scenes/gamificationScene";
 import { expoScene } from "./scenes/expoSene";
-import { caseScene } from "./scenes/caseScene.1";
+import { caseScene } from "./scenes/caseScene";
 
 const game = new Engine({
   width: 1200,
