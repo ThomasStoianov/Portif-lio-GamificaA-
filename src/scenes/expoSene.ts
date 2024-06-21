@@ -1,7 +1,7 @@
 import { Actor, CollisionType, Color, Engine, FadeInOut, Scene, Transition, vec } from "excalibur";
 import { Resources } from "../resources";
 import { Player } from "../actors/player";
-import { npc } from "../actors/npc";
+import { Npc } from "../actors/npc";
 
 export class expoScene extends Scene {
     onTransition(direction: "in" | "out"): Transition | undefined {
@@ -57,17 +57,17 @@ export class expoScene extends Scene {
         let npcSpawnPointC = tiledMap.getObjectsByName("npc_c") [0]
 
         // Configurar NPCs
-        let npcA = new npc(
+        let npcA = new Npc(
             vec(npcSpawnPointA.x + offsetX, npcSpawnPointA.y + offsetY),
            npcSpawnPointA.tiledObject.name!
         )
 
-        let npcB = new npc(
+        let npcB = new Npc(
             vec(npcSpawnPointB.x + offsetX, npcSpawnPointB.y + offsetY),
            npcSpawnPointB.tiledObject.name!
         )
 
-        let npcC = new npc(
+        let npcC = new Npc(
             vec(npcSpawnPointC.x + offsetX, npcSpawnPointC.y + offsetY),
            npcSpawnPointC.tiledObject.name!
         )

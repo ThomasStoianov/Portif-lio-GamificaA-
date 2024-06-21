@@ -1,8 +1,7 @@
-import { Actor, CollisionType, Animation, Engine, SpriteSheet, Vector } from "excalibur";
-import { Resources } from "../resources";
+import { Actor, CollisionType, Animation, Engine, SpriteSheet, Vector } from "excalibur"
+import { Resources } from "../resources"
 
-
-export class npc extends Actor {
+export class Npc extends Actor {
     constructor(posicao: Vector, nome: string) {
         super({
             pos: posicao,
@@ -11,7 +10,6 @@ export class npc extends Actor {
             name: nome,
             collisionType: CollisionType.Fixed
         })
-
     }
 
     onInitialize(engine: Engine<any>): void {
@@ -20,9 +18,9 @@ export class npc extends Actor {
             image: Resources.npcASpriteSheet,
             grid: {
                 spriteWidth: 32,
-                spriteHeight: 32,
+                spriteHeight: 64,
                 columns: 56,
-                rows:20
+                rows: 20
             }
         })
 
@@ -30,9 +28,9 @@ export class npc extends Actor {
             image: Resources.npcBSpriteSheet,
             grid: {
                 spriteWidth: 32,
-                spriteHeight: 32,
+                spriteHeight: 64,
                 columns: 56,
-                rows:20
+                rows: 20
             }
         })
 
@@ -40,9 +38,9 @@ export class npc extends Actor {
             image: Resources.npcCSpriteSheet,
             grid: {
                 spriteWidth: 32,
-                spriteHeight: 32,
+                spriteHeight: 64,
                 columns: 56,
-                rows:20
+                rows: 20
             }
         })
 
@@ -51,17 +49,16 @@ export class npc extends Actor {
 
         if(this.name == "npc_a") {
             spriteDefinido = spriteNpcA
-        } else if(this.name == "npc_b") {
+        } else if (this.name == "npc_b") {
             spriteDefinido = spriteNpcB
-        } else if(this.name == "npc_c") {
+        } else if (this.name == "npc_c") {
             spriteDefinido = spriteNpcC
         } else {
-            console.log("Nome do npc não previsto:", this.name);
-            
+            console.log("Nome do NPC não previsto:", this.name);            
         }
 
-        // Criar animação
-        if(spriteDefinido) {
+        // Se tiver um spite definido -> Criar animação
+        if (spriteDefinido) {
             const downIdle = new Animation({
                 frames: [
                     { graphic: spriteDefinido.getSprite(18, 1) },

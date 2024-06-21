@@ -1,118 +1,108 @@
-import { Actor, Color, Engine, FadeInOut, Keys, Scene, SceneActivationContext, Transition, vec } from "excalibur";
+import { Actor, Color, Engine, FadeInOut, Keys, Scene, SceneActivationContext, Sprite, Transition, vec } from "excalibur";
 import { Resources } from "../resources";
 
 export class caseScene extends Scene {
     private objetoInteracao: any
+    private elementoTexto?: HTMLElement
+    private actorEmpresa?: Actor
 
-    private textoDaCena: string = ""
-    private textoDoCase: string = ""
-
-    elementoTexto?: HTMLElement
-
-    fadeOutElement(element: HTMLElement) {
-        let opacidade = parseFloat(element.style.opacity);
-        setInterval(() => {
-            if (opacidade > 0) {
-                opacidade -= 0.03
+    private listaImagens?: Sprite[]
     
-                element.style.opacity = opacidade.toString()
-            }
-        }, 10)
-    }
-
     onTransition(direction: "in" | "out"): Transition | undefined {
         return new FadeInOut({
             direction: direction,
             color: Color.Black,
-            duration: 50,
+            duration: 1000
         })
     }
 
     onInitialize(engine: Engine<any>): void {
         this.backgroundColor = Color.Gray
 
+        // Criar elemento com a descrição do case
         this.elementoTexto = document.createElement("div") as HTMLElement
+        this.elementoTexto.classList.add("texto-case")
 
-        this.elementoTexto.style.opacity = "1"
+        // Adicionar o elemento ao container game
+        let containerGame = document.querySelector(".container-game")
+        containerGame?.appendChild(this.elementoTexto)
 
-        let container_gamer = document.querySelector(".container-game") as HTMLElement
-        container_gamer.appendChild(this.elementoTexto)
-
-        this.elementoTexto.classList.add("cases")
-        
+        // Ao pressionar Esc voltar para a exposição
         this.input.keyboard.on("press", (event) => {
             if (event.key == Keys.Esc) {
-                engine.goToScene("exposicao", {
-                    sourceOut: new FadeInOut ({duration: 500})
-                })
-                this.fadeOutElement(this.elementoTexto!)
+                engine.goToScene("exposicao")
             }
         })
+
+        // Criar actor para receber a imagem
+        this.actorEmpresa = new Actor({
+            pos: vec(engine.drawWidth - 300, engine.halfDrawHeight - 50)
+        })
+
+        // Carregar imagens das empresas
+        let imagemEmpresaXYZ = Resources.Escola.toSprite()
+        let imagemEmpresaABC = Resources.Escritorio.toSprite()
+        
+
+        this.listaImagens = [imagemEmpresaXYZ, imagemEmpresaABC, ]        
     }
 
     onActivate(context: SceneActivationContext<unknown>): void {
-        this.objetoInteracao = context.data
+        // Faz a caixa de texto aparecer ao chegar na cena
         this.elementoTexto!.style.opacity = "1"
+        
+        // Receber os dados passados pela cena anterior
+        this.objetoInteracao = context.data
 
-        if (this.objetoInteracao.nomeDoActor == "mesa_stand_a"){
-            
-        this.elementoTexto = document.createElement("div") as HTMLElement
+        if (this.objetoInteracao.nomeDaMesa == "mesa_stand_a") {
+            // Mesa A detectada
+            this.elementoTexto!.innerHTML = `<h2>XYZ Tech - Transformação Digital e Capacitação na Tecnologia</h2>
+            <p>A empresa enfrentava dificuldades na adoção de novas tecnologias pelos funcionários, resultando em baixa eficiência e resistência às mudanças.</p>
+            <p>A XYZ Tech Solutions implementou uma plataforma de treinamento gamificada, onde os funcionários ganhavam pontos e badges ao completar módulos de treinamento sobre novas tecnologias. Eles podiam ver seu progresso em um leaderboard, incentivando uma competição saudável.</p>            
+            `
 
-        this.elementoTexto.style.opacity = "1"
+            // Inserir o sprite no actor da mesa A
+            this.actorEmpresa?.graphics.add(this.listaImagens![0])
 
-        let container_gamer = document.querySelector(".container-game") as HTMLElement
-        container_gamer.appendChild(this.elementoTexto)
-
-        this.elementoTexto.classList.add("cases")
-
-            this.textoDaCena = "Empresa de Tecnologia: Desafio de Propor e Implementar Ideias Inovadoras"
-            this.textoDoCase = "Na nossa empresa de tecnologia, percebemos uma baixa participação dos funcionários no desafio de propor e implementar ideias inovadoras. Para resolver isso, implementamos um sistema de pontos onde os colaboradores são recompensados por propor ideias, votar, comentar e ajudar na implementação. Introduzimos um leaderboard dinâmico atualizado em tempo real para mostrar os principais contribuintes. Dividimos o desafio em missões menores com prazos específicos, o que tornou as metas mais alcançáveis. Além disso, oferecemos feedback imediato sobre as ideias propostas, fazendo com que os funcionários se sintam valorizados e engajados no processo."
-            // Adicionar a imagem - graphics add
-             
-
-             let actorCases = new Actor({
-                pos: vec(this.engine.drawWidth - 300, this.engine.halfDrawHeight),
-            })
-    
-            let imagemCases = Resources.Escola.toSprite()
-
-            imagemCases.scale = vec(0.1, 0.1)
-            actorCases.graphics.add(imagemCases)
-            this.add(actorCases)
-
+            // Mudar o zoom da imagem
+            this.actorEmpresa!.graphics.current!.scale = vec(0.1, 0.1)
         }
 
-        if (this.objetoInteracao.nomeDoActor == "mesa_stand_b"){
+        if (this.objetoInteracao.nomeDaMesa == "mesa_stand_b") {
+            // Mesa B detectada
+            this.elementoTexto!.innerHTML = `<h2>ABC Finance - Incentivo à Cultura de Inovação</h2>
+            <p>A empresa queria incentivar os funcionários a proporem ideias inovadoras para melhorar processos e produtos, mas havia pouca participação.
+            <p>ABC Finance criou um programa chamado "InovaABC" onde os funcionários podiam submeter ideias e ganhar pontos. As ideias eram votadas pelos colegas e avaliadas por um comitê. Os funcionários com as melhores ideias ganhavam prêmios e reconhecimento trimestral.
+            `
 
+            // Inserir o sprite no actor da mesa A
+            this.actorEmpresa?.graphics.add(this.listaImagens![1])
 
-            this.textoDaCena = "Empresa de Consultoria: Narrativa Interativa no Programa de Treinamento"
-            this.textoDoCase = "Na nossa empresa de consultoria, enfrentamos o desafio de tornar nosso programa de treinamento mais envolvente. Criamos personagens cativantes e histórias envolventes, permitindo que os participantes tomem decisões que impactam a narrativa. Implementamos uma barra de progresso visual para que os participantes possam acompanhar seu avanço. Também introduzimos recompensas narrativas, como itens virtuais e conquistas, que aumentam a motivação. Essas mudanças tornaram o treinamento mais interessante e engajante, promovendo um aprendizado ativo e envolvente."
-
-            
-            let actorCases = new Actor({
-                pos: vec(this.engine.drawWidth - 300, this.engine.halfDrawHeight),
-            })
-    
-            let imagemCases = Resources.Escritorio.toSprite()
-
-            imagemCases.scale = vec(0.1, 0.1)
-            actorCases.graphics.add(imagemCases)
-            this.add(actorCases)
-
+            // Mudar o zoom da imagem
+            this.actorEmpresa!.graphics.current!.scale = vec(0.1, 0.1)
         }
 
-        if (this.objetoInteracao.nomeDoActor == "mesa_stand_c"){
-            this.textoDaCena = "Empresa de Vendas: Competição Gamificada entre Equipes"
-            this.textoDoCase = "Na nossa empresa de vendas, a competição gamificada entre equipes inicialmente causou alguns conflitos e desmotivação. Para resolver isso, garantimos que as equipes fossem balanceadas e rotacionadas periodicamente, permitindo que todos tivessem a chance de colaborar com diferentes colegas. Estabelecemos metas comuns para incentivar a colaboração entre todas as equipes, criando um senso de união. Além disso, oferecemos recompensas coletivas e individuais, promovemos feedback positivo entre as equipes e organizamos eventos de teambuilding. Essas iniciativas fortaleceram as relações e reduziram a tensão competitiva, criando um ambiente mais harmonioso e motivador."
+        if (this.objetoInteracao.nomeDaMesa == "mesa_stand_c") {
+            // Mesa C detectada
+            this.elementoTexto!.innerHTML = `<h2>FastMart - Melhoria na Experiência do Cliente</h2>
+            <p>A empresa de varejo enfrentava problemas com o atendimento ao cliente, resultando em baixa satisfação e retenção de clientes.
+            <p>FastMart lançou uma aplicação interna onde os atendentes ganhavam pontos ao fornecer um excelente atendimento ao cliente, baseado em avaliações dos próprios clientes e supervisores. Os melhores atendentes eram destacados no mural da empresa e recebiam recompensas.
+            `
+
+            // Inserir o sprite no actor da mesa A
+            this.actorEmpresa?.graphics.add(this.listaImagens![2])
+
+            // Mudar o zoom da imagem
+            this.actorEmpresa!.graphics.current!.scale = vec(0.1, 0.1)
         }
 
-        // this.add(actorCases)
-
-        this.elementoTexto!.innerHTML = `<h2>${this.textoDaCena}</h2>
-        <p>${this.textoDoCase}</p>`
+        // Adiciona o actor da imagem na tela
+        this.add(this.actorEmpresa!)
+        
     }
 
-    onDeactivate(_context: SceneActivationContext<undefined>): void {
-        this.elementoTexto!.remove()
+    onDeactivate(context: SceneActivationContext<undefined>): void {
+        // Faz a caixa de texto desaparecer ao mudar de cena
+        this.elementoTexto!.style.opacity = "0"
     }
 }
